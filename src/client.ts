@@ -41,7 +41,7 @@ import {
   UserLoginParams,
   UserLoginResponse,
   UserResource,
-  UserUpdateParams,
+  UserUpdateUserParams,
 } from './resources/user';
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
@@ -712,8 +712,8 @@ export declare namespace PetstoreDemo {
     type User as User,
     type UserLoginResponse as UserLoginResponse,
     type UserCreateParams as UserCreateParams,
-    type UserUpdateParams as UserUpdateParams,
     type UserCreateWithListParams as UserCreateWithListParams,
     type UserLoginParams as UserLoginParams,
+    type UserUpdateUserParams as UserUpdateUserParams,
   };
 }

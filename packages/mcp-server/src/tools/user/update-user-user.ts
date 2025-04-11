@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'update_user',
+  name: 'update_user_user',
   description: 'This can only be done by the logged in user.',
   inputSchema: {
     type: 'object',
@@ -47,7 +47,7 @@ export const tool: Tool = {
 
 export const handler = (client: PetstoreDemo, args: any) => {
   const { username, ...body } = args;
-  return client.user.update(username, body);
+  return client.user.updateUser(username, body);
 };
 
 export default { metadata, tool, handler };

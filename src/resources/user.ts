@@ -24,21 +24,6 @@ export class UserResource extends APIResource {
   /**
    * This can only be done by the logged in user.
    */
-  update(
-    pathUsername: string,
-    body: UserUpdateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    return this._client.put(path`/user/${pathUsername}`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * This can only be done by the logged in user.
-   */
   delete(username: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/user/${username}`, {
       ...options,
@@ -69,6 +54,21 @@ export class UserResource extends APIResource {
    */
   logout(options?: RequestOptions): APIPromise<void> {
     return this._client.get('/user/logout', {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * This can only be done by the logged in user.
+   */
+  updateUser(
+    pathUsername: string,
+    body: UserUpdateUserParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    return this._client.put(path`/user/${pathUsername}`, {
+      body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
@@ -119,7 +119,23 @@ export interface UserCreateParams {
   userStatus?: number;
 }
 
-export interface UserUpdateParams {
+export interface UserCreateWithListParams {
+  body?: Array<User>;
+}
+
+export interface UserLoginParams {
+  /**
+   * The password for login in clear text
+   */
+  password?: string;
+
+  /**
+   * The user name for login
+   */
+  username?: string;
+}
+
+export interface UserUpdateUserParams {
   id?: number;
 
   email?: string;
@@ -140,29 +156,13 @@ export interface UserUpdateParams {
   userStatus?: number;
 }
 
-export interface UserCreateWithListParams {
-  body?: Array<User>;
-}
-
-export interface UserLoginParams {
-  /**
-   * The password for login in clear text
-   */
-  password?: string;
-
-  /**
-   * The user name for login
-   */
-  username?: string;
-}
-
 export declare namespace UserResource {
   export {
     type User as User,
     type UserLoginResponse as UserLoginResponse,
     type UserCreateParams as UserCreateParams,
-    type UserUpdateParams as UserUpdateParams,
     type UserCreateWithListParams as UserCreateWithListParams,
     type UserLoginParams as UserLoginParams,
+    type UserUpdateUserParams as UserUpdateUserParams,
   };
 }
