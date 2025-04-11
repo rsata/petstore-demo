@@ -1,33 +1,32 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
-import type { Metadata } from '../';
+import type { Metadata } from '../../';
 import PetstoreDemo from 'petstore-demo';
 
 export const metadata: Metadata = {
-  resource: 'pet',
+  resource: 'stores.order',
   operation: 'read',
   tags: [],
 };
 
 export const tool: Tool = {
-  name: 'find_by_status_pet',
-  description: 'Multiple status values can be provided with comma separated strings.',
+  name: 'retrieve_stores_order',
+  description:
+    'For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.',
   inputSchema: {
     type: 'object',
     properties: {
-      status: {
-        type: 'string',
-        description: 'Status values that need to be considered for filter',
-        enum: ['available', 'pending', 'sold'],
+      orderId: {
+        type: 'integer',
       },
     },
   },
 };
 
 export const handler = (client: PetstoreDemo, args: any) => {
-  const { ...body } = args;
-  return client.pet.findByStatus(body);
+  const { orderId } = args;
+  return client.stores.order.retrieve(orderId);
 };
 
 export default { metadata, tool, handler };

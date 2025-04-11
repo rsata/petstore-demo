@@ -5,14 +5,14 @@ import type { Metadata } from '../';
 import PetstoreDemo from 'petstore-demo';
 
 export const metadata: Metadata = {
-  resource: 'pet',
+  resource: 'pets',
   operation: 'write',
   tags: [],
 };
 
 export const tool: Tool = {
-  name: 'create_pet',
-  description: 'Add a new pet to the store.',
+  name: 'update_pets',
+  description: 'Update an existing pet by Id.',
   inputSchema: {
     type: 'object',
     properties: {
@@ -66,7 +66,7 @@ export const tool: Tool = {
 
 export const handler = (client: PetstoreDemo, args: any) => {
   const { ...body } = args;
-  return client.pet.create(body);
+  return client.pets.update(body);
 };
 
 export default { metadata, tool, handler };

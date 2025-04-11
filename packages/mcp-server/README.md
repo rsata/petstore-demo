@@ -73,7 +73,7 @@ Use `--list` to see the list of available tools, or see below.
 import { server, endpoints, init } from "petstore-demo-mcp/server";
 
 // import a specific tool
-import createPet from "petstore-demo-mcp/tools/pet/create-pet";
+import createPets from "petstore-demo-mcp/tools/pets/create-pets";
 
 // initialize the server and all endpoints
 init({ server, endpoints });
@@ -98,33 +98,33 @@ const myCustomEndpoint = {
 };
 
 // initialize the server with your custom endpoints
-init({ server: myServer, endpoints: [createPet, myCustomEndpoint] });
+init({ server: myServer, endpoints: [createPets, myCustomEndpoint] });
 ```
 
 ## Available Tools
 
 The following tools are available in this MCP server.
 
-### Resource `pet`:
+### Resource `pets`:
 
-- `create_pet` (`write`): Add a new pet to the store.
-- `retrieve_pet` (`read`): Returns a single pet.
-- `update_pet` (`write`): Update an existing pet by Id.
-- `delete_pet` (`write`): Delete a pet.
-- `find_by_status_pet` (`read`): Multiple status values can be provided with comma separated strings.
-- `find_by_tags_pet` (`read`): Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-- `update_with_form_pet` (`write`): Updates a pet resource based on the form data.
-- `upload_pet` (`write`): Upload image of the pet.
+- `create_pets` (`write`): Add a new pet to the store.
+- `retrieve_pets` (`read`): Returns a single pet.
+- `update_pets` (`write`): Update an existing pet by Id.
+- `delete_pets` (`write`): Delete a pet.
+- `find_by_status_pets` (`read`): Multiple status values can be provided with comma separated strings.
+- `find_by_tags_pets` (`read`): Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+- `update_with_form_pets` (`write`): Updates a pet resource based on the form data.
+- `upload_pets` (`write`): Upload image of the pet.
 
-### Resource `store`:
+### Resource `stores`:
 
-- `list_inventory_store` (`read`): Returns a map of status codes to quantities.
+- `list_inventory_stores` (`read`): Returns a map of status codes to quantities.
 
-### Resource `store.order`:
+### Resource `stores.order`:
 
-- `create_store_order` (`write`): Place a new order in the store.
-- `retrieve_store_order` (`read`): For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
-- `delete_store_order` (`write`): For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors.
+- `create_stores_order` (`write`): Place a new order in the store.
+- `retrieve_stores_order` (`read`): For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
+- `delete_stores_order` (`write`): For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors.
 
 ### Resource `user`:
 

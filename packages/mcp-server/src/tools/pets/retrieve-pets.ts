@@ -5,13 +5,13 @@ import type { Metadata } from '../';
 import PetstoreDemo from 'petstore-demo';
 
 export const metadata: Metadata = {
-  resource: 'pet',
+  resource: 'pets',
   operation: 'read',
   tags: [],
 };
 
 export const tool: Tool = {
-  name: 'retrieve_pet',
+  name: 'retrieve_pets',
   description: 'Returns a single pet.',
   inputSchema: {
     type: 'object',
@@ -25,7 +25,7 @@ export const tool: Tool = {
 
 export const handler = (client: PetstoreDemo, args: any) => {
   const { petId } = args;
-  return client.pet.retrieve(petId);
+  return client.pets.retrieve(petId);
 };
 
 export default { metadata, tool, handler };
