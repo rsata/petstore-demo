@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export { Beta, type BetaBetafeatureResponse } from './beta';
 export {
   Pets,
   type Pet,

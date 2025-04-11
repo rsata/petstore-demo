@@ -40,6 +40,16 @@ Methods:
 - <code title="get /store/order/{orderId}">client.stores.order.<a href="./src/resources/stores/order.ts">retrieve</a>(orderID) -> Order</code>
 - <code title="delete /store/order/{orderId}">client.stores.order.<a href="./src/resources/stores/order.ts">delete</a>(orderID) -> void</code>
 
+# Beta
+
+Types:
+
+- <code><a href="./src/resources/beta.ts">BetaBetafeatureResponse</a></code>
+
+Methods:
+
+- <code title="get /store/inventory">client.beta.<a href="./src/resources/beta.ts">betafeature</a>() -> BetaBetafeatureResponse</code>
+
 # User
 
 Types:

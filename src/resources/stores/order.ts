@@ -25,6 +25,8 @@ export class OrderResource extends APIResource {
   /**
    * For valid response try integer IDs with value < 1000. Anything above 1000 or
    * non-integers will generate API errors.
+   *
+   * @deprecated please use new delete method
    */
   delete(orderID: number, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/store/order/${orderID}`, {
