@@ -31,8 +31,8 @@ import {
   PetResource,
   PetUpdateParams,
   PetUpdateWithFormParams,
-  PetUploadImageParams,
-  PetUploadImageResponse,
+  PetUploadParams,
+  PetUploadResponse,
 } from './resources/pet';
 import {
   User,
@@ -696,13 +696,13 @@ export declare namespace PetstoreDemo {
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
-    type PetUploadImageResponse as PetUploadImageResponse,
+    type PetUploadResponse as PetUploadResponse,
     type PetCreateParams as PetCreateParams,
     type PetUpdateParams as PetUpdateParams,
     type PetFindByStatusParams as PetFindByStatusParams,
     type PetFindByTagsParams as PetFindByTagsParams,
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
-    type PetUploadImageParams as PetUploadImageParams,
+    type PetUploadParams as PetUploadParams,
   };
 
   export { Store as Store, type StoreListInventoryResponse as StoreListInventoryResponse };

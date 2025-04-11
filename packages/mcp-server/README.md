@@ -114,7 +114,7 @@ The following tools are available in this MCP server.
 - `find_by_status_pet` (`read`): Multiple status values can be provided with comma separated strings.
 - `find_by_tags_pet` (`read`): Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
 - `update_with_form_pet` (`write`): Updates a pet resource based on the form data.
-- `upload_image_pet` (`write`): Upload image of the pet.
+- `upload_pet` (`write`): Upload image of the pet.
 
 ### Resource `store`:
 

@@ -74,11 +74,11 @@ export class PetResource extends APIResource {
   /**
    * Upload image of the pet.
    */
-  uploadImage(
+  upload(
     petID: number,
-    params: PetUploadImageParams | null | undefined = undefined,
+    params: PetUploadParams | null | undefined = undefined,
     options?: RequestOptions,
-  ): APIPromise<PetUploadImageResponse> {
+  ): APIPromise<PetUploadResponse> {
     const { additionalMetadata, body } = params ?? {};
     return this._client.post(path`/pet/${petID}/uploadImage`, {
       query: { additionalMetadata },
@@ -124,7 +124,7 @@ export type PetFindByStatusResponse = Array<Pet>;
 
 export type PetFindByTagsResponse = Array<Pet>;
 
-export interface PetUploadImageResponse {
+export interface PetUploadResponse {
   code?: number;
 
   message?: string;
@@ -220,7 +220,7 @@ export interface PetUpdateWithFormParams {
   status?: string;
 }
 
-export interface PetUploadImageParams {
+export interface PetUploadParams {
   /**
    * Query param: Additional Metadata
    */
@@ -237,12 +237,12 @@ export declare namespace PetResource {
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
-    type PetUploadImageResponse as PetUploadImageResponse,
+    type PetUploadResponse as PetUploadResponse,
     type PetCreateParams as PetCreateParams,
     type PetUpdateParams as PetUpdateParams,
     type PetFindByStatusParams as PetFindByStatusParams,
     type PetFindByTagsParams as PetFindByTagsParams,
     type PetUpdateWithFormParams as PetUpdateWithFormParams,
-    type PetUploadImageParams as PetUploadImageParams,
+    type PetUploadParams as PetUploadParams,
   };
 }
