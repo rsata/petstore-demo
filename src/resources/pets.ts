@@ -6,7 +6,7 @@ import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
-export class PetResource extends APIResource {
+export class Pets extends APIResource {
   /**
    * Add a new pet to the store.
    */
@@ -232,7 +232,7 @@ export interface PetUploadParams {
   body?: string | ArrayBuffer | ArrayBufferView | Blob | DataView;
 }
 
-export declare namespace PetResource {
+export declare namespace Pets {
   export {
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,

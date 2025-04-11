@@ -28,12 +28,12 @@ import {
   PetFindByStatusResponse,
   PetFindByTagsParams,
   PetFindByTagsResponse,
-  PetResource,
   PetUpdateParams,
   PetUpdateWithFormParams,
   PetUploadParams,
   PetUploadResponse,
-} from './resources/pet';
+  Pets,
+} from './resources/pets';
 import {
   User,
   UserCreateParams,
@@ -46,7 +46,7 @@ import {
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
-import { Store, StoreListInventoryResponse } from './resources/store/store';
+import { StoreListInventoryResponse, Stores } from './resources/stores/stores';
 
 export interface ClientOptions {
   /**
@@ -681,18 +681,18 @@ export class PetstoreDemo {
 
   static toFile = Uploads.toFile;
 
-  pet: API.PetResource = new API.PetResource(this);
-  store: API.Store = new API.Store(this);
+  pets: API.Pets = new API.Pets(this);
+  stores: API.Stores = new API.Stores(this);
   user: API.UserResource = new API.UserResource(this);
 }
-PetstoreDemo.PetResource = PetResource;
-PetstoreDemo.Store = Store;
+PetstoreDemo.Pets = Pets;
+PetstoreDemo.Stores = Stores;
 PetstoreDemo.UserResource = UserResource;
 export declare namespace PetstoreDemo {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    PetResource as PetResource,
+    Pets as Pets,
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
@@ -705,7 +705,7 @@ export declare namespace PetstoreDemo {
     type PetUploadParams as PetUploadParams,
   };
 
-  export { Store as Store, type StoreListInventoryResponse as StoreListInventoryResponse };
+  export { Stores as Stores, type StoreListInventoryResponse as StoreListInventoryResponse };
 
   export {
     UserResource as UserResource,

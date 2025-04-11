@@ -5,35 +5,29 @@ import type { Metadata } from '../';
 import PetstoreDemo from 'petstore-demo';
 
 export const metadata: Metadata = {
-  resource: 'pet',
-  operation: 'write',
+  resource: 'pets',
+  operation: 'read',
   tags: [],
 };
 
 export const tool: Tool = {
-  name: 'update_with_form_pet',
-  description: 'Updates a pet resource based on the form data.',
+  name: 'find_by_status_pets',
+  description: 'Multiple status values can be provided with comma separated strings.',
   inputSchema: {
     type: 'object',
     properties: {
-      petId: {
-        type: 'integer',
-      },
-      name: {
-        type: 'string',
-        description: 'Name of pet that needs to be updated',
-      },
       status: {
         type: 'string',
-        description: 'Status of pet that needs to be updated',
+        description: 'Status values that need to be considered for filter',
+        enum: ['available', 'pending', 'sold'],
       },
     },
   },
 };
 
 export const handler = (client: PetstoreDemo, args: any) => {
-  const { petId, ...body } = args;
-  return client.pet.updateWithForm(petId, body);
+  const { ...body } = args;
+  return client.pets.findByStatus(body);
 };
 
 export default { metadata, tool, handler };
