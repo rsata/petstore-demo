@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export const tool: Tool = {
-  name: 'upload_image_pet',
+  name: 'upload_pet',
   description: 'Upload image of the pet.',
   inputSchema: {
     type: 'object',
@@ -32,7 +32,7 @@ export const tool: Tool = {
 
 export const handler = (client: PetstoreDemo, args: any) => {
   const { petId, ...body } = args;
-  return client.pet.uploadImage(petId, body);
+  return client.pet.upload(petId, body);
 };
 
 export default { metadata, tool, handler };
