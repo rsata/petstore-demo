@@ -53,6 +53,39 @@ describe('resource user', () => {
   });
 
   // skipped: tests are disabled for the time being
+  test.skip('update', async () => {
+    const responsePromise = client.user.update('username');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // skipped: tests are disabled for the time being
+  test.skip('update: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.user.update(
+        'username',
+        {
+          id: 10,
+          email: 'john@email.com',
+          firstName: 'John',
+          lastName: 'James',
+          password: '12345',
+          phone: '12345',
+          body_username: 'theUser',
+          userStatus: 1,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(PetstoreDemo.NotFoundError);
+  });
+
+  // skipped: tests are disabled for the time being
   test.skip('delete', async () => {
     const responsePromise = client.user.delete('username');
     const rawResponse = await responsePromise.asResponse();
@@ -130,38 +163,5 @@ describe('resource user', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: tests are disabled for the time being
-  test.skip('updateUser', async () => {
-    const responsePromise = client.user.updateUser('username');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // skipped: tests are disabled for the time being
-  test.skip('updateUser: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.user.updateUser(
-        'username',
-        {
-          id: 10,
-          email: 'john@email.com',
-          firstName: 'John',
-          lastName: 'James',
-          password: '12345',
-          phone: '12345',
-          body_username: 'theUser',
-          userStatus: 1,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(PetstoreDemo.NotFoundError);
   });
 });

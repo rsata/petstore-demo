@@ -19,7 +19,7 @@ export {
   type User,
   type UserLoginResponse,
   type UserCreateParams,
+  type UserUpdateParams,
   type UserCreateWithListParams,
   type UserLoginParams,
-  type UserUpdateUserParams,
 } from './user';
