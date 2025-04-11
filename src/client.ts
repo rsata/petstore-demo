@@ -21,6 +21,7 @@ import { APIPromise } from './core/api-promise';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
+import { Beta, BetaBetafeatureResponse } from './resources/beta';
 import {
   Pet,
   PetCreateParams,
@@ -683,10 +684,12 @@ export class PetstoreDemo {
 
   pets: API.Pets = new API.Pets(this);
   stores: API.Stores = new API.Stores(this);
+  beta: API.Beta = new API.Beta(this);
   user: API.UserResource = new API.UserResource(this);
 }
 PetstoreDemo.Pets = Pets;
 PetstoreDemo.Stores = Stores;
+PetstoreDemo.Beta = Beta;
 PetstoreDemo.UserResource = UserResource;
 export declare namespace PetstoreDemo {
   export type RequestOptions = Opts.RequestOptions;
@@ -706,6 +709,8 @@ export declare namespace PetstoreDemo {
   };
 
   export { Stores as Stores, type StoreListInventoryResponse as StoreListInventoryResponse };
+
+  export { Beta as Beta, type BetaBetafeatureResponse as BetaBetafeatureResponse };
 
   export {
     UserResource as UserResource,

@@ -126,6 +126,10 @@ The following tools are available in this MCP server.
 - `retrieve_stores_order` (`read`): For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
 - `delete_stores_order` (`write`): For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors.
 
+### Resource `beta`:
+
+- `betafeature_beta` (`read`): Returns a map of status codes to quantities.
+
 ### Resource `user`:
 
 - `create_user` (`write`): This can only be done by the logged in user.
