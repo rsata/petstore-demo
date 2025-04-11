@@ -5,7 +5,7 @@ Types:
 - <code><a href="./src/resources/pet.ts">Pet</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByStatusResponse</a></code>
 - <code><a href="./src/resources/pet.ts">PetFindByTagsResponse</a></code>
-- <code><a href="./src/resources/pet.ts">PetUploadImageResponse</a></code>
+- <code><a href="./src/resources/pet.ts">PetUploadResponse</a></code>
 
 Methods:
 
@@ -16,7 +16,7 @@ Methods:
 - <code title="get /pet/findByStatus">client.pet.<a href="./src/resources/pet.ts">findByStatus</a>({ ...params }) -> PetFindByStatusResponse</code>
 - <code title="get /pet/findByTags">client.pet.<a href="./src/resources/pet.ts">findByTags</a>({ ...params }) -> PetFindByTagsResponse</code>
 - <code title="post /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">updateWithForm</a>(petID, { ...params }) -> Pet</code>
-- <code title="post /pet/{petId}/uploadImage">client.pet.<a href="./src/resources/pet.ts">uploadImage</a>(petID, { ...params }) -> PetUploadImageResponse</code>
+- <code title="post /pet/{petId}/uploadImage">client.pet.<a href="./src/resources/pet.ts">upload</a>(petID, { ...params }) -> PetUploadResponse</code>
 
 # Store
 

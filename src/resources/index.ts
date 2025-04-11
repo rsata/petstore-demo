@@ -5,13 +5,13 @@ export {
   type Pet,
   type PetFindByStatusResponse,
   type PetFindByTagsResponse,
-  type PetUploadImageResponse,
+  type PetUploadResponse,
   type PetCreateParams,
   type PetUpdateParams,
   type PetFindByStatusParams,
   type PetFindByTagsParams,
   type PetUpdateWithFormParams,
-  type PetUploadImageParams,
+  type PetUploadParams,
 } from './pet';
 export { Store, type StoreListInventoryResponse } from './store/store';
 export {
