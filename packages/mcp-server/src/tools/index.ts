@@ -17,11 +17,11 @@ import retrieve_store_order from './store/order/retrieve-store-order';
 import delete_store_order from './store/order/delete-store-order';
 import create_user from './user/create-user';
 import retrieve_user from './user/retrieve-user';
-import update_user from './user/update-user';
 import delete_user from './user/delete-user';
 import create_with_list_user from './user/create-with-list-user';
 import login_user from './user/login-user';
 import logout_user from './user/logout-user';
+import update_user_user from './user/update-user-user';
 
 export type HandlerFunction = (client: PetstoreDemo, args: any) => Promise<any>;
 
@@ -57,11 +57,11 @@ addEndpoint(retrieve_store_order);
 addEndpoint(delete_store_order);
 addEndpoint(create_user);
 addEndpoint(retrieve_user);
-addEndpoint(update_user);
 addEndpoint(delete_user);
 addEndpoint(create_with_list_user);
 addEndpoint(login_user);
 addEndpoint(logout_user);
+addEndpoint(update_user_user);
 
 export type Filter = {
   type: 'resource' | 'operation' | 'tag' | 'tool';

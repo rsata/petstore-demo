@@ -130,8 +130,8 @@ The following tools are available in this MCP server.
 
 - `create_user` (`write`): This can only be done by the logged in user.
 - `retrieve_user` (`read`): Get user detail based on username.
-- `update_user` (`write`): This can only be done by the logged in user.
 - `delete_user` (`write`): This can only be done by the logged in user.
 - `create_with_list_user` (`write`): Creates list of users with given input array.
 - `login_user` (`read`): Log into the system.
 - `logout_user` (`read`): Log user out of the system.
+- `update_user_user` (`write`): This can only be done by the logged in user.
