@@ -5,32 +5,27 @@ import type { Metadata } from '../';
 import PetstoreDemo from 'petstore-demo';
 
 export const metadata: Metadata = {
-  resource: 'pet',
-  operation: 'read',
+  resource: 'pets',
+  operation: 'write',
   tags: [],
 };
 
 export const tool: Tool = {
-  name: 'find_by_tags_pet',
-  description:
-    'Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.',
+  name: 'delete_pets',
+  description: 'Delete a pet.',
   inputSchema: {
     type: 'object',
     properties: {
-      tags: {
-        type: 'array',
-        description: 'Tags to filter by',
-        items: {
-          type: 'string',
-        },
+      petId: {
+        type: 'integer',
       },
     },
   },
 };
 
 export const handler = (client: PetstoreDemo, args: any) => {
-  const { ...body } = args;
-  return client.pet.findByTags(body);
+  const { petId } = args;
+  return client.pets.delete(petId);
 };
 
 export default { metadata, tool, handler };

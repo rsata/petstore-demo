@@ -5,27 +5,29 @@ import type { Metadata } from '../';
 import PetstoreDemo from 'petstore-demo';
 
 export const metadata: Metadata = {
-  resource: 'pet',
-  operation: 'write',
+  resource: 'pets',
+  operation: 'read',
   tags: [],
 };
 
 export const tool: Tool = {
-  name: 'delete_pet',
-  description: 'Delete a pet.',
+  name: 'find_by_status_pets',
+  description: 'Multiple status values can be provided with comma separated strings.',
   inputSchema: {
     type: 'object',
     properties: {
-      petId: {
-        type: 'integer',
+      status: {
+        type: 'string',
+        description: 'Status values that need to be considered for filter',
+        enum: ['available', 'pending', 'sold'],
       },
     },
   },
 };
 
 export const handler = (client: PetstoreDemo, args: any) => {
-  const { petId } = args;
-  return client.pet.delete(petId);
+  const { ...body } = args;
+  return client.pets.findByStatus(body);
 };
 
 export default { metadata, tool, handler };

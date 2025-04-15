@@ -6,7 +6,7 @@ import { Order, OrderCreateParams, OrderResource } from './order';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
-export class Store extends APIResource {
+export class Stores extends APIResource {
   order: OrderAPI.OrderResource = new OrderAPI.OrderResource(this._client);
 
   /**
@@ -19,9 +19,9 @@ export class Store extends APIResource {
 
 export type StoreListInventoryResponse = Record<string, number>;
 
-Store.OrderResource = OrderResource;
+Stores.OrderResource = OrderResource;
 
-export declare namespace Store {
+export declare namespace Stores {
   export { type StoreListInventoryResponse as StoreListInventoryResponse };
 
   export { OrderResource as OrderResource, type Order as Order, type OrderCreateParams as OrderCreateParams };

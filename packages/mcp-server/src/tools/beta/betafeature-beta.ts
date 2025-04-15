@@ -5,13 +5,13 @@ import type { Metadata } from '../';
 import PetstoreDemo from 'petstore-demo';
 
 export const metadata: Metadata = {
-  resource: 'store',
+  resource: 'beta',
   operation: 'read',
   tags: [],
 };
 
 export const tool: Tool = {
-  name: 'list_inventory_store',
+  name: 'betafeature_beta',
   description: 'Returns a map of status codes to quantities.',
   inputSchema: {
     type: 'object',
@@ -21,7 +21,7 @@ export const tool: Tool = {
 
 export const handler = (client: PetstoreDemo, args: any) => {
   const {} = args;
-  return client.store.listInventory();
+  return client.beta.betafeature();
 };
 
 export default { metadata, tool, handler };

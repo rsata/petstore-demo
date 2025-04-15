@@ -5,34 +5,27 @@ import type { Metadata } from '../';
 import PetstoreDemo from 'petstore-demo';
 
 export const metadata: Metadata = {
-  resource: 'pet',
-  operation: 'write',
+  resource: 'pets',
+  operation: 'read',
   tags: [],
 };
 
 export const tool: Tool = {
-  name: 'upload_pet',
-  description: 'Upload image of the pet.',
+  name: 'retrieve_pets',
+  description: 'Returns a single pet.',
   inputSchema: {
     type: 'object',
     properties: {
       petId: {
         type: 'integer',
       },
-      additionalMetadata: {
-        type: 'string',
-        description: 'Additional Metadata',
-      },
-      body: {
-        type: 'string',
-      },
     },
   },
 };
 
 export const handler = (client: PetstoreDemo, args: any) => {
-  const { petId, ...body } = args;
-  return client.pet.upload(petId, body);
+  const { petId } = args;
+  return client.pets.retrieve(petId);
 };
 
 export default { metadata, tool, handler };
