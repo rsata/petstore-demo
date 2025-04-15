@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-04-15)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/rsata/petstore-demo/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** new methods ([867b561](https://github.com/rsata/petstore-demo/commit/867b561f3fc5e6f76d1503aa7df5fd4b434067ad))
+* **api:** pluralize resources ([fcb72b6](https://github.com/rsata/petstore-demo/commit/fcb72b6eca1a467e2968e61ca2580efe8ac8711d))
+
+
+### Chores
+
+* **client:** minor internal fixes ([709efca](https://github.com/rsata/petstore-demo/commit/709efcaabaab981df348403f72ba3d033839583e))
+
 ## 0.1.0-alpha.2 (2025-04-11)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/rsata/petstore-demo/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
