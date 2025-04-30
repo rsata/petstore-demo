@@ -19,8 +19,7 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: PetstoreDemo, args: any) => {
-  const {} = args;
+export const handler = (client: PetstoreDemo, args: Record<string, unknown> | undefined) => {
   return client.stores.listInventory();
 };
 

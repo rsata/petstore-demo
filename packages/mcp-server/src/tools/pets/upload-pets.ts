@@ -30,8 +30,8 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: PetstoreDemo, args: any) => {
-  const { petId, ...body } = args;
+export const handler = (client: PetstoreDemo, args: Record<string, unknown> | undefined) => {
+  const { petId, ...body } = args as any;
   return client.pets.upload(petId, body);
 };
 
