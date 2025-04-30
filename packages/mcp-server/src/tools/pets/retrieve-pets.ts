@@ -23,8 +23,8 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: PetstoreDemo, args: any) => {
-  const { petId } = args;
+export const handler = (client: PetstoreDemo, args: Record<string, unknown> | undefined) => {
+  const { petId, ...body } = args as any;
   return client.pets.retrieve(petId);
 };
 

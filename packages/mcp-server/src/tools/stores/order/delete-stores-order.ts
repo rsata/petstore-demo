@@ -24,8 +24,8 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: PetstoreDemo, args: any) => {
-  const { orderId } = args;
+export const handler = (client: PetstoreDemo, args: Record<string, unknown> | undefined) => {
+  const { orderId, ...body } = args as any;
   return client.stores.order.delete(orderId);
 };
 
