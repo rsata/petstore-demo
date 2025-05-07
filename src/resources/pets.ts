@@ -9,6 +9,14 @@ import { path } from '../internal/utils/path';
 export class Pets extends APIResource {
   /**
    * Add a new pet to the store.
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pets.create({
+   *   name: 'doggie',
+   *   photoUrls: ['string'],
+   * });
+   * ```
    */
   create(body: PetCreateParams, options?: RequestOptions): APIPromise<Pet> {
     return this._client.post('/pet', { body, ...options });
@@ -16,6 +24,11 @@ export class Pets extends APIResource {
 
   /**
    * Returns a single pet.
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pets.retrieve(0);
+   * ```
    */
   retrieve(petID: number, options?: RequestOptions): APIPromise<Pet> {
     return this._client.get(path`/pet/${petID}`, options);
@@ -23,6 +36,14 @@ export class Pets extends APIResource {
 
   /**
    * Update an existing pet by Id.
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pets.update({
+   *   name: 'doggie',
+   *   photoUrls: ['string'],
+   * });
+   * ```
    */
   update(body: PetUpdateParams, options?: RequestOptions): APIPromise<Pet> {
     return this._client.put('/pet', { body, ...options });
@@ -30,6 +51,11 @@ export class Pets extends APIResource {
 
   /**
    * Delete a pet.
+   *
+   * @example
+   * ```ts
+   * await client.pets.delete(0);
+   * ```
    */
   delete(petID: number, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/pet/${petID}`, {
@@ -40,6 +66,11 @@ export class Pets extends APIResource {
 
   /**
    * Multiple status values can be provided with comma separated strings.
+   *
+   * @example
+   * ```ts
+   * const pets = await client.pets.findByStatus();
+   * ```
    */
   findByStatus(
     query: PetFindByStatusParams | null | undefined = {},
@@ -51,6 +82,11 @@ export class Pets extends APIResource {
   /**
    * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3
    * for testing.
+   *
+   * @example
+   * ```ts
+   * const pets = await client.pets.findByTags();
+   * ```
    */
   findByTags(
     query: PetFindByTagsParams | null | undefined = {},
@@ -61,6 +97,11 @@ export class Pets extends APIResource {
 
   /**
    * Updates a pet resource based on the form data.
+   *
+   * @example
+   * ```ts
+   * const pet = await client.pets.updateWithForm(0);
+   * ```
    */
   updateWithForm(
     petID: number,
@@ -73,6 +114,11 @@ export class Pets extends APIResource {
 
   /**
    * Upload image of the pet.
+   *
+   * @example
+   * ```ts
+   * const response = await client.pets.upload(0);
+   * ```
    */
   upload(
     petID: number,
