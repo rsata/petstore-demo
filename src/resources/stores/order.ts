@@ -9,6 +9,11 @@ import { path } from '../../internal/utils/path';
 export class OrderResource extends APIResource {
   /**
    * Place a new order in the store.
+   *
+   * @example
+   * ```ts
+   * const order = await client.stores.order.create();
+   * ```
    */
   create(body: OrderCreateParams | null | undefined = {}, options?: RequestOptions): APIPromise<Order> {
     return this._client.post('/store/order', { body, ...options });
@@ -17,6 +22,11 @@ export class OrderResource extends APIResource {
   /**
    * For valid response try integer IDs with value <= 5 or > 10. Other values will
    * generate exceptions.
+   *
+   * @example
+   * ```ts
+   * const order = await client.stores.order.retrieve(0);
+   * ```
    */
   retrieve(orderID: number, options?: RequestOptions): APIPromise<Order> {
     return this._client.get(path`/store/order/${orderID}`, options);
