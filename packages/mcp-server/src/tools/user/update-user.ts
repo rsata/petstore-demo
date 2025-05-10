@@ -45,8 +45,8 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: PetstoreDemo, args: any) => {
-  const { username, ...body } = args;
+export const handler = (client: PetstoreDemo, args: Record<string, unknown> | undefined) => {
+  const { username, ...body } = args as any;
   return client.user.update(username, body);
 };
 

@@ -19,43 +19,48 @@ export const tool: Tool = {
       body: {
         type: 'array',
         items: {
-          type: 'object',
-          properties: {
-            id: {
-              type: 'integer',
-            },
-            email: {
-              type: 'string',
-            },
-            firstName: {
-              type: 'string',
-            },
-            lastName: {
-              type: 'string',
-            },
-            password: {
-              type: 'string',
-            },
-            phone: {
-              type: 'string',
-            },
-            username: {
-              type: 'string',
-            },
-            userStatus: {
-              type: 'integer',
-              description: 'User Status',
-            },
-          },
-          required: [],
+          $ref: '#/$defs/user',
         },
+      },
+    },
+    $defs: {
+      user: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'integer',
+          },
+          email: {
+            type: 'string',
+          },
+          firstName: {
+            type: 'string',
+          },
+          lastName: {
+            type: 'string',
+          },
+          password: {
+            type: 'string',
+          },
+          phone: {
+            type: 'string',
+          },
+          username: {
+            type: 'string',
+          },
+          userStatus: {
+            type: 'integer',
+            description: 'User Status',
+          },
+        },
+        required: [],
       },
     },
   },
 };
 
-export const handler = (client: PetstoreDemo, args: any) => {
-  const { ...body } = args;
+export const handler = (client: PetstoreDemo, args: Record<string, unknown> | undefined) => {
+  const body = args as any;
   return client.user.createWithList(body);
 };
 
