@@ -3,18 +3,19 @@
 import PetstoreDemo from 'petstore-demo';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 
-import create_pet from './pet/create-pet';
-import retrieve_pet from './pet/retrieve-pet';
-import update_pet from './pet/update-pet';
-import delete_pet from './pet/delete-pet';
-import find_by_status_pet from './pet/find-by-status-pet';
-import find_by_tags_pet from './pet/find-by-tags-pet';
-import update_with_form_pet from './pet/update-with-form-pet';
-import upload_pet from './pet/upload-pet';
-import list_inventory_store from './store/list-inventory-store';
-import create_store_order from './store/order/create-store-order';
-import retrieve_store_order from './store/order/retrieve-store-order';
-import delete_store_order from './store/order/delete-store-order';
+import create_pets from './pets/create-pets';
+import retrieve_pets from './pets/retrieve-pets';
+import update_pets from './pets/update-pets';
+import delete_pets from './pets/delete-pets';
+import find_by_status_pets from './pets/find-by-status-pets';
+import find_by_tags_pets from './pets/find-by-tags-pets';
+import update_with_form_pets from './pets/update-with-form-pets';
+import upload_pets from './pets/upload-pets';
+import list_inventory_stores from './stores/list-inventory-stores';
+import create_stores_order from './stores/order/create-stores-order';
+import retrieve_stores_order from './stores/order/retrieve-stores-order';
+import delete_stores_order from './stores/order/delete-stores-order';
+import betafeature_beta from './beta/betafeature-beta';
 import create_user from './user/create-user';
 import retrieve_user from './user/retrieve-user';
 import update_user from './user/update-user';
@@ -23,7 +24,10 @@ import create_with_list_user from './user/create-with-list-user';
 import login_user from './user/login-user';
 import logout_user from './user/logout-user';
 
-export type HandlerFunction = (client: PetstoreDemo, args: any) => Promise<any>;
+export type HandlerFunction = (
+  client: PetstoreDemo,
+  args: Record<string, unknown> | undefined,
+) => Promise<any>;
 
 export type Metadata = {
   resource: string;
@@ -43,18 +47,19 @@ function addEndpoint(endpoint: Endpoint) {
   endpoints.push(endpoint);
 }
 
-addEndpoint(create_pet);
-addEndpoint(retrieve_pet);
-addEndpoint(update_pet);
-addEndpoint(delete_pet);
-addEndpoint(find_by_status_pet);
-addEndpoint(find_by_tags_pet);
-addEndpoint(update_with_form_pet);
-addEndpoint(upload_pet);
-addEndpoint(list_inventory_store);
-addEndpoint(create_store_order);
-addEndpoint(retrieve_store_order);
-addEndpoint(delete_store_order);
+addEndpoint(create_pets);
+addEndpoint(retrieve_pets);
+addEndpoint(update_pets);
+addEndpoint(delete_pets);
+addEndpoint(find_by_status_pets);
+addEndpoint(find_by_tags_pets);
+addEndpoint(update_with_form_pets);
+addEndpoint(upload_pets);
+addEndpoint(list_inventory_stores);
+addEndpoint(create_stores_order);
+addEndpoint(retrieve_stores_order);
+addEndpoint(delete_stores_order);
+addEndpoint(betafeature_beta);
 addEndpoint(create_user);
 addEndpoint(retrieve_user);
 addEndpoint(update_user);
@@ -70,22 +75,32 @@ export type Filter = {
 };
 
 export function query(filters: Filter[], endpoints: Endpoint[]): Endpoint[] {
-  if (filters.length === 0) {
-    return endpoints;
-  }
-  const allExcludes = filters.every((filter) => filter.op === 'exclude');
+  const allExcludes = filters.length > 0 && filters.every((filter) => filter.op === 'exclude');
+  const unmatchedFilters = new Set(filters);
 
-  return endpoints.filter((endpoint: Endpoint) => {
+  const filtered = endpoints.filter((endpoint: Endpoint) => {
     let included = false || allExcludes;
 
     for (const filter of filters) {
       if (match(filter, endpoint)) {
+        unmatchedFilters.delete(filter);
         included = filter.op === 'include';
       }
     }
 
     return included;
   });
+
+  // Check if any filters didn't match
+  if (unmatchedFilters.size > 0) {
+    throw new Error(
+      `The following filters did not match any endpoints: ${[...unmatchedFilters]
+        .map((f) => `${f.type}=${f.value}`)
+        .join(', ')}`,
+    );
+  }
+
+  return filtered;
 }
 
 function match({ type, value }: Filter, endpoint: Endpoint): boolean {

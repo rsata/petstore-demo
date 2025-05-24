@@ -21,6 +21,7 @@ import { APIPromise } from './core/api-promise';
 import { type Fetch } from './internal/builtin-types';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
+import { Beta, BetaBetafeatureResponse } from './resources/beta';
 import {
   Pet,
   PetCreateParams,
@@ -28,12 +29,12 @@ import {
   PetFindByStatusResponse,
   PetFindByTagsParams,
   PetFindByTagsResponse,
-  PetResource,
   PetUpdateParams,
   PetUpdateWithFormParams,
   PetUploadParams,
   PetUploadResponse,
-} from './resources/pet';
+  Pets,
+} from './resources/pets';
 import {
   User,
   UserCreateParams,
@@ -46,7 +47,7 @@ import {
 import { readEnv } from './internal/utils/env';
 import { formatRequestDetails, loggerFor } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
-import { Store, StoreListInventoryResponse } from './resources/store/store';
+import { StoreListInventoryResponse, Stores } from './resources/stores/stores';
 
 export interface ClientOptions {
   /**
@@ -186,6 +187,23 @@ export class PetstoreDemo {
     this._options = options;
 
     this.apiKey = apiKey;
+  }
+
+  /**
+   * Create a new client instance re-using the same options given to the current client with optional overriding.
+   */
+  withOptions(options: Partial<ClientOptions>): this {
+    return new (this.constructor as any as new (props: ClientOptions) => typeof this)({
+      ...this._options,
+      baseURL: this.baseURL,
+      maxRetries: this.maxRetries,
+      timeout: this.timeout,
+      logger: this.logger,
+      logLevel: this.logLevel,
+      fetchOptions: this.fetchOptions,
+      apiKey: this.apiKey,
+      ...options,
+    });
   }
 
   protected defaultQuery(): Record<string, string | undefined> | undefined {
@@ -476,12 +494,12 @@ export class PetstoreDemo {
       fetchOptions.method = method.toUpperCase();
     }
 
-    return (
+    try {
       // use undefined this binding; fetch errors if bound to something else in browser/cloudflare
-      this.fetch.call(undefined, url, fetchOptions).finally(() => {
-        clearTimeout(timeout);
-      })
-    );
+      return await this.fetch.call(undefined, url, fetchOptions);
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   private shouldRetry(response: Response): boolean {
@@ -562,17 +580,17 @@ export class PetstoreDemo {
   }
 
   buildRequest(
-    options: FinalRequestOptions,
+    inputOptions: FinalRequestOptions,
     { retryCount = 0 }: { retryCount?: number } = {},
   ): { req: FinalizedRequestInit; url: string; timeout: number } {
-    options = { ...options };
+    const options = { ...inputOptions };
     const { method, path, query } = options;
 
     const url = this.buildURL(path!, query as Record<string, unknown>);
     if ('timeout' in options) validatePositiveInteger('timeout', options.timeout);
     options.timeout = options.timeout ?? this.timeout;
     const { bodyHeaders, body } = this.buildBody({ options });
-    const reqHeaders = this.buildHeaders({ options, method, bodyHeaders, retryCount });
+    const reqHeaders = this.buildHeaders({ options: inputOptions, method, bodyHeaders, retryCount });
 
     const req: FinalizedRequestInit = {
       method,
@@ -681,18 +699,20 @@ export class PetstoreDemo {
 
   static toFile = Uploads.toFile;
 
-  pet: API.PetResource = new API.PetResource(this);
-  store: API.Store = new API.Store(this);
+  pets: API.Pets = new API.Pets(this);
+  stores: API.Stores = new API.Stores(this);
+  beta: API.Beta = new API.Beta(this);
   user: API.UserResource = new API.UserResource(this);
 }
-PetstoreDemo.PetResource = PetResource;
-PetstoreDemo.Store = Store;
+PetstoreDemo.Pets = Pets;
+PetstoreDemo.Stores = Stores;
+PetstoreDemo.Beta = Beta;
 PetstoreDemo.UserResource = UserResource;
 export declare namespace PetstoreDemo {
   export type RequestOptions = Opts.RequestOptions;
 
   export {
-    PetResource as PetResource,
+    Pets as Pets,
     type Pet as Pet,
     type PetFindByStatusResponse as PetFindByStatusResponse,
     type PetFindByTagsResponse as PetFindByTagsResponse,
@@ -705,7 +725,9 @@ export declare namespace PetstoreDemo {
     type PetUploadParams as PetUploadParams,
   };
 
-  export { Store as Store, type StoreListInventoryResponse as StoreListInventoryResponse };
+  export { Stores as Stores, type StoreListInventoryResponse as StoreListInventoryResponse };
+
+  export { Beta as Beta, type BetaBetafeatureResponse as BetaBetafeatureResponse };
 
   export {
     UserResource as UserResource,

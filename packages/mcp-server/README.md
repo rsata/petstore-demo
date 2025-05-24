@@ -11,7 +11,8 @@ Because it's not published yet, clone the repo and build it:
 ```sh
 git clone git@github.com:rsata/petstore-demo.git
 cd petstore-demo
-yarn && ./scripts/build-all
+./scripts/bootstrap
+./scripts/build
 ```
 
 ### Running
@@ -19,7 +20,7 @@ yarn && ./scripts/build-all
 ```sh
 # set env vars as needed
 export PETSTORE_DEMO_API_KEY="My API Key"
-npx ./packages/mcp-server
+node ./packages/mcp-server/dist/index.js
 ```
 
 > [!NOTE]
@@ -38,8 +39,8 @@ For clients with a configuration JSON, it might look something like this:
 {
   "mcpServers": {
     "petstore_demo_api": {
-      "command": "npx",
-      "args": ["-y", "/path/to/local/petstore-demo/packages/mcp-server"],
+      "command": "node",
+      "args": ["/path/to/local/petstore-demo/packages/mcp-server", "--client=claude", "--tools=all"],
       "env": {
         "PETSTORE_DEMO_API_KEY": "My API Key"
       }
@@ -48,7 +49,14 @@ For clients with a configuration JSON, it might look something like this:
 }
 ```
 
-## Filtering tools
+## Exposing endpoints to your MCP Client
+
+There are two ways to expose endpoints as tools in the MCP server:
+
+1. Exposing one tool per endpoint, and filtering as necessary
+2. Exposing a set of tools to dynamically discover and invoke endpoints from the API
+
+### Filtering endpoints and tools
 
 You can run the package on the command line to discover and filter the set of tools that are exposed by the
 MCP Server. This can be helpful for large APIs where including all endpoints at once is too much for your AI's
@@ -60,11 +68,78 @@ You can filter by multiple aspects:
 - `--resource` includes all tools under a specific resource, and can have wildcards, e.g. `my.resource*`
 - `--operation` includes just read (get/list) or just write operations
 
+### Dynamic tools
+
+If you specify `--tools=dynamic` to the MCP server, instead of exposing one tool per endpoint in the API, it will
+expose the following tools:
+
+1. `list_api_endpoints` - Discovers available endpoints, with optional filtering by search query
+2. `get_api_endpoint_schema` - Gets detailed schema information for a specific endpoint
+3. `invoke_api_endpoint` - Executes any endpoint with the appropriate parameters
+
+This allows you to have the full set of API endpoints available to your MCP Client, while not requiring that all
+of their schemas be loaded into context at once. Instead, the LLM will automatically use these tools together to
+search for, look up, and invoke endpoints dynamically. However, due to the indirect nature of the schemas, it
+can struggle to provide the correct properties a bit more than when tools are imported explicitly. Therefore,
+you can opt-in to explicit tools, the dynamic tools, or both.
+
 See more information with `--help`.
 
 All of these command-line options can be repeated, combined together, and have corresponding exclusion versions (e.g. `--no-tool`).
 
 Use `--list` to see the list of available tools, or see below.
+
+### Specifying the MCP Client
+
+Different clients have varying abilities to handle arbitrary tools and schemas.
+
+You can specify the client you are using with the `--client` argument, and the MCP server will automatically
+serve tools and schemas that are more compatible with that client.
+
+- `--client=<type>`: Set all capabilities based on a known MCP client
+
+  - Valid values: `openai-agents`, `claude`, `claude-code`, `cursor`
+  - Example: `--client=cursor`
+
+Additionally, if you have a client not on the above list, or the client has gotten better
+over time, you can manually enable or disable certain capabilities:
+
+- `--capability=<name>`: Specify individual client capabilities
+  - Available capabilities:
+    - `top-level-unions`: Enable support for top-level unions in tool schemas
+    - `valid-json`: Enable JSON string parsing for arguments
+    - `refs`: Enable support for $ref pointers in schemas
+    - `unions`: Enable support for union types (anyOf) in schemas
+    - `formats`: Enable support for format validations in schemas (e.g. date-time, email)
+    - `tool-name-length=N`: Set maximum tool name length to N characters
+  - Example: `--capability=top-level-unions --capability=tool-name-length=40`
+  - Example: `--capability=top-level-unions,tool-name-length=40`
+
+### Examples
+
+1. Filter for read operations on cards:
+
+```bash
+--resource=cards --operation=read
+```
+
+2. Exclude specific tools while including others:
+
+```bash
+--resource=cards --no-tool=create_cards
+```
+
+3. Configure for Cursor client with custom max tool name length:
+
+```bash
+--client=cursor --capability=tool-name-length=40
+```
+
+4. Complex filtering with multiple criteria:
+
+```bash
+--resource=cards,accounts --operation=read --tag=kyc --no-tool=create_cards
+```
 
 ## Importing the tools and server individually
 
@@ -73,7 +148,7 @@ Use `--list` to see the list of available tools, or see below.
 import { server, endpoints, init } from "petstore-demo-mcp/server";
 
 // import a specific tool
-import createPet from "petstore-demo-mcp/tools/pet/create-pet";
+import createPets from "petstore-demo-mcp/tools/pets/create-pets";
 
 // initialize the server and all endpoints
 init({ server, endpoints });
@@ -98,33 +173,37 @@ const myCustomEndpoint = {
 };
 
 // initialize the server with your custom endpoints
-init({ server: myServer, endpoints: [createPet, myCustomEndpoint] });
+init({ server: myServer, endpoints: [createPets, myCustomEndpoint] });
 ```
 
 ## Available Tools
 
 The following tools are available in this MCP server.
 
-### Resource `pet`:
+### Resource `pets`:
 
-- `create_pet` (`write`): Add a new pet to the store.
-- `retrieve_pet` (`read`): Returns a single pet.
-- `update_pet` (`write`): Update an existing pet by Id.
-- `delete_pet` (`write`): Delete a pet.
-- `find_by_status_pet` (`read`): Multiple status values can be provided with comma separated strings.
-- `find_by_tags_pet` (`read`): Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
-- `update_with_form_pet` (`write`): Updates a pet resource based on the form data.
-- `upload_pet` (`write`): Upload image of the pet.
+- `create_pets` (`write`): Add a new pet to the store.
+- `retrieve_pets` (`read`): Returns a single pet.
+- `update_pets` (`write`): Update an existing pet by Id.
+- `delete_pets` (`write`): Delete a pet.
+- `find_by_status_pets` (`read`): Multiple status values can be provided with comma separated strings.
+- `find_by_tags_pets` (`read`): Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
+- `update_with_form_pets` (`write`): Updates a pet resource based on the form data.
+- `upload_pets` (`write`): Upload image of the pet.
 
-### Resource `store`:
+### Resource `stores`:
 
-- `list_inventory_store` (`read`): Returns a map of status codes to quantities.
+- `list_inventory_stores` (`read`): Returns a map of status codes to quantities.
 
-### Resource `store.order`:
+### Resource `stores.order`:
 
-- `create_store_order` (`write`): Place a new order in the store.
-- `retrieve_store_order` (`read`): For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
-- `delete_store_order` (`write`): For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors.
+- `create_stores_order` (`write`): Place a new order in the store.
+- `retrieve_stores_order` (`read`): For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
+- `delete_stores_order` (`write`): For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors.
+
+### Resource `beta`:
+
+- `betafeature_beta` (`read`): Returns a map of status codes to quantities.
 
 ### Resource `user`:
 
