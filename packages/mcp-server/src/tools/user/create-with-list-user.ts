@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'user',
   operation: 'write',
   tags: [],
+  httpMethod: 'post',
+  httpPath: '/user/createWithList',
+  operationId: 'createUsersWithListInput',
 };
 
 export const tool: Tool = {

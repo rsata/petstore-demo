@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'pets',
   operation: 'write',
   tags: [],
+  httpMethod: 'post',
+  httpPath: '/pet/{petId}/uploadImage',
+  operationId: 'uploadFile',
 };
 
 export const tool: Tool = {
