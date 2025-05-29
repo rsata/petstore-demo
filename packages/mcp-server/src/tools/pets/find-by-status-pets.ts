@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'pets',
   operation: 'read',
   tags: [],
+  httpMethod: 'get',
+  httpPath: '/pet/findByStatus',
+  operationId: 'findPetsByStatus',
 };
 
 export const tool: Tool = {

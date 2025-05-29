@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   resource: 'stores',
   operation: 'read',
   tags: [],
+  httpMethod: 'get',
+  httpPath: '/store/inventory',
+  operationId: 'getInventory',
 };
 
 export const tool: Tool = {
