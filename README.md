@@ -29,13 +29,9 @@ const client = new PetstoreDemo({
   apiKey: process.env['PETSTORE_DEMO_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const pet = await client.pets.update({ name: 'doggie', photoUrls: ['string'] });
+const pet = await client.pets.update({ name: 'doggie', photoUrls: ['string'] });
 
-  console.log(pet.id);
-}
-
-main();
+console.log(pet.id);
 ```
 
 ### Request & Response types
@@ -50,12 +46,8 @@ const client = new PetstoreDemo({
   apiKey: process.env['PETSTORE_DEMO_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const params: PetstoreDemo.PetUpdateParams = { name: 'doggie', photoUrls: ['string'] };
-  const pet: PetstoreDemo.Pet = await client.pets.update(params);
-}
-
-main();
+const params: PetstoreDemo.PetUpdateParams = { name: 'doggie', photoUrls: ['string'] };
+const pet: PetstoreDemo.Pet = await client.pets.update(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -68,19 +60,15 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const pet = await client.pets.update({ name: 'doggie', photoUrls: ['string'] }).catch(async (err) => {
-    if (err instanceof PetstoreDemo.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const pet = await client.pets.update({ name: 'doggie', photoUrls: ['string'] }).catch(async (err) => {
+  if (err instanceof PetstoreDemo.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
 Error codes are as follows:
