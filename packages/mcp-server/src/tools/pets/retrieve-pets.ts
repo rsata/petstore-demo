@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { asTextContentResult } from 'petstore-demo-mcp/tools/types';
+
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { Metadata } from '../';
 import PetstoreDemo from 'petstore-demo';
@@ -26,9 +28,9 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: PetstoreDemo, args: Record<string, unknown> | undefined) => {
+export const handler = async (client: PetstoreDemo, args: Record<string, unknown> | undefined) => {
   const { petId, ...body } = args as any;
-  return client.pets.retrieve(petId);
+  return asTextContentResult(await client.pets.retrieve(petId));
 };
 
 export default { metadata, tool, handler };

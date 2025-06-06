@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import PetstoreDemo from 'petstore-demo';
-import { Tool } from '@modelcontextprotocol/sdk/types.js';
+import { Metadata, Endpoint, HandlerFunction } from './types';
+
+export { Metadata, Endpoint, HandlerFunction };
 
 import create_pets from './pets/create-pets';
 import retrieve_pets from './pets/retrieve-pets';
@@ -23,27 +24,6 @@ import delete_user from './user/delete-user';
 import create_with_list_user from './user/create-with-list-user';
 import login_user from './user/login-user';
 import logout_user from './user/logout-user';
-
-export type HandlerFunction = (
-  client: PetstoreDemo,
-  args: Record<string, unknown> | undefined,
-) => Promise<any>;
-
-export type Metadata = {
-  resource: string;
-  operation: 'read' | 'write';
-  tags: string[];
-
-  httpMethod?: string;
-  httpPath?: string;
-  operationId?: string;
-};
-
-export type Endpoint = {
-  metadata: Metadata;
-  tool: Tool;
-  handler: HandlerFunction;
-};
 
 export const endpoints: Endpoint[] = [];
 
