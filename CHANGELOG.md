@@ -1,5 +1,62 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-06-07)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/rsata/petstore-demo/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** new methods ([867b561](https://github.com/rsata/petstore-demo/commit/867b561f3fc5e6f76d1503aa7df5fd4b434067ad))
+* **api:** pluralize resources ([fcb72b6](https://github.com/rsata/petstore-demo/commit/fcb72b6eca1a467e2968e61ca2580efe8ac8711d))
+* **client:** add withOptions helper ([3054797](https://github.com/rsata/petstore-demo/commit/30547977e9497abaa4e5ede41733cadf510b0284))
+* **mcp:** implement support for binary responses ([ebba2af](https://github.com/rsata/petstore-demo/commit/ebba2af60b2ed13a75b921f7f6cb04b1d31fb4c1))
+* **mcp:** include http information in tools ([30992bc](https://github.com/rsata/petstore-demo/commit/30992bc457cb79859a41d9044228cdec278cbe54))
+* **mcp:** support dynamically discovering and invoking tools for APIs with many endpoints ([279a596](https://github.com/rsata/petstore-demo/commit/279a596b98eee498a020dcd4de4dee18085b39e9))
+* more gracefully handle $refs and work around schema limitations ([2e8bc83](https://github.com/rsata/petstore-demo/commit/2e8bc83947ad27ace8ba8a529c177cb8fc7a5e90))
+
+
+### Bug Fixes
+
+* **client:** always overwrite when merging headers ([d24772e](https://github.com/rsata/petstore-demo/commit/d24772ef4ddb1f8be2b2a056cc3e733b4bd156d3))
+* compat with more runtimes ([9cd8691](https://github.com/rsata/petstore-demo/commit/9cd8691daca571e5c2bff8c4577d77e1de1b5f9a))
+* **mcp:** explicitly include zod and zod-to-json-schema in package.json ([24a653d](https://github.com/rsata/petstore-demo/commit/24a653de8d18f850ba98ed65bf6cba53b98cae55))
+* **mcp:** fix cursor schema transformation issue with recursive references ([0404c1d](https://github.com/rsata/petstore-demo/commit/0404c1d403a5ab402df41e9173bab0bc670b8527))
+* **mcp:** include description in dynamic tool search ([c7c92cd](https://github.com/rsata/petstore-demo/commit/c7c92cdf88816e59f61444cbe1d488d2b9fa611c))
+* **mcp:** remove ajv dependency so MCP servers are more compatible with Cloudflare Workers ([fadccc8](https://github.com/rsata/petstore-demo/commit/fadccc8f98473f35264a01e4bb1270afd308d3cd))
+
+
+### Chores
+
+* adjust eslint.config.mjs ignore pattern ([26d1125](https://github.com/rsata/petstore-demo/commit/26d11256b1a377d8add62c49c836d326f9b182ee))
+* avoid type error in certain environments ([82d520a](https://github.com/rsata/petstore-demo/commit/82d520a3dc7112c4e35881c9c99849637b2206c9))
+* **build:** automatically build subpackages if present ([bb228b5](https://github.com/rsata/petstore-demo/commit/bb228b5789fed045fe6d62b67a70bf62e4227fe5))
+* **ci:** add timeout thresholds for CI jobs ([46ceab2](https://github.com/rsata/petstore-demo/commit/46ceab2e39af0ae49d575bca8084fae781488309))
+* **ci:** only use depot for staging repos ([0acb919](https://github.com/rsata/petstore-demo/commit/0acb91943557d5cdb1122bfdda156cc75e62a561))
+* **client:** drop support for EOL node versions ([4cec1d9](https://github.com/rsata/petstore-demo/commit/4cec1d9e0422a43f5bcad07ca536bfb0e313358a))
+* **client:** minor internal fixes ([709efca](https://github.com/rsata/petstore-demo/commit/709efcaabaab981df348403f72ba3d033839583e))
+* **deps:** bump eslint-plugin-prettier ([97aa9b0](https://github.com/rsata/petstore-demo/commit/97aa9b0d8befa5f239da54f4a7faa4ac5b90fc26))
+* **docs:** grammar improvements ([6fe3dec](https://github.com/rsata/petstore-demo/commit/6fe3dec547d81cabc18e1270d1df137620cf7ed8))
+* **docs:** use top-level-await in example snippets ([ad312d4](https://github.com/rsata/petstore-demo/commit/ad312d4a40649c1b1806b6af74457213a5d302cb))
+* improve publish-npm script --latest tag logic ([f0f1cc1](https://github.com/rsata/petstore-demo/commit/f0f1cc1dc2bc16365d4073b0938e18cb563d2cc8))
+* **internal:** codegen related update ([515fc38](https://github.com/rsata/petstore-demo/commit/515fc381ef286ed5a301319537a3ab034be085d1))
+* **internal:** codegen related update ([207a38e](https://github.com/rsata/petstore-demo/commit/207a38ed0827eb69d4c32f2312e2cf5bb58717ea))
+* **internal:** codegen related update ([2eb35b1](https://github.com/rsata/petstore-demo/commit/2eb35b15166e2182096e726b17a97b50798c5eb8))
+* **internal:** codegen related update ([17f3510](https://github.com/rsata/petstore-demo/commit/17f3510365f5072bf463e8a3cf750f8dd25b623d))
+* **internal:** fix readablestream types in node 20 ([8b04fab](https://github.com/rsata/petstore-demo/commit/8b04fab6636c38b2ab64bfcb72c89e8795326dff))
+* **internal:** refactor utils ([8878e6d](https://github.com/rsata/petstore-demo/commit/8878e6dd78b03e9777d651ffe67cca5672ad2b5d))
+* **internal:** share typescript helpers ([5a1fda5](https://github.com/rsata/petstore-demo/commit/5a1fda54250ca6e325992f2659bfd42d0e260daf))
+* **internal:** update jest config ([5e4d28a](https://github.com/rsata/petstore-demo/commit/5e4d28a94602dba1ac526510ddfdd5a5a903ff84))
+* **mcp:** remove duplicate assignment ([161078e](https://github.com/rsata/petstore-demo/commit/161078ede6b89c334b2090a0a6986c5f9daad0cc))
+* **package:** remove engines ([472d9b5](https://github.com/rsata/petstore-demo/commit/472d9b508b4b7264f3deb3bf1bc92cf9c8fe02c0))
+* **perf:** faster base64 decoding ([b422bd2](https://github.com/rsata/petstore-demo/commit/b422bd270ab70898b2e034d71a3571ed677b7a7e))
+* **tests:** use node 22 for CI tests ([c839b7a](https://github.com/rsata/petstore-demo/commit/c839b7a4e55177f2e5e502d5c10bd5bb9f049075))
+
+
+### Documentation
+
+* add examples to tsdocs ([654d03e](https://github.com/rsata/petstore-demo/commit/654d03e42a799878bb6caf512bbfcb6de0180b07))
+* **readme:** fix typo ([392cfa2](https://github.com/rsata/petstore-demo/commit/392cfa2257fef2ee89fb8083e61ace7c94fe7cd6))
+
 ## 0.1.0-alpha.2 (2025-04-11)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/rsata/petstore-demo/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
