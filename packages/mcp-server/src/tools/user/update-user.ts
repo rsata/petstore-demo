@@ -1,5 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { asTextContentResult } from 'petstore-demo-mcp/tools/types';
+
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
 import type { Metadata } from '../';
 import PetstoreDemo from 'petstore-demo';
@@ -8,6 +10,9 @@ export const metadata: Metadata = {
   resource: 'user',
   operation: 'write',
   tags: [],
+  httpMethod: 'put',
+  httpPath: '/user/{username}',
+  operationId: 'updateUser',
 };
 
 export const tool: Tool = {
@@ -45,9 +50,10 @@ export const tool: Tool = {
   },
 };
 
-export const handler = (client: PetstoreDemo, args: any) => {
-  const { username, ...body } = args;
-  return client.user.update(username, body);
+export const handler = async (client: PetstoreDemo, args: Record<string, unknown> | undefined) => {
+  const { username, ...body } = args as any;
+  await client.user.update(username, body);
+  return asTextContentResult('Successful tool call');
 };
 
 export default { metadata, tool, handler };

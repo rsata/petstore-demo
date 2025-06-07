@@ -1,44 +1,54 @@
-# Pet
+# Pets
 
 Types:
 
-- <code><a href="./src/resources/pet.ts">Pet</a></code>
-- <code><a href="./src/resources/pet.ts">PetFindByStatusResponse</a></code>
-- <code><a href="./src/resources/pet.ts">PetFindByTagsResponse</a></code>
-- <code><a href="./src/resources/pet.ts">PetUploadResponse</a></code>
+- <code><a href="./src/resources/pets.ts">Pet</a></code>
+- <code><a href="./src/resources/pets.ts">PetFindByStatusResponse</a></code>
+- <code><a href="./src/resources/pets.ts">PetFindByTagsResponse</a></code>
+- <code><a href="./src/resources/pets.ts">PetUploadResponse</a></code>
 
 Methods:
 
-- <code title="post /pet">client.pet.<a href="./src/resources/pet.ts">create</a>({ ...params }) -> Pet</code>
-- <code title="get /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">retrieve</a>(petID) -> Pet</code>
-- <code title="put /pet">client.pet.<a href="./src/resources/pet.ts">update</a>({ ...params }) -> Pet</code>
-- <code title="delete /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">delete</a>(petID) -> void</code>
-- <code title="get /pet/findByStatus">client.pet.<a href="./src/resources/pet.ts">findByStatus</a>({ ...params }) -> PetFindByStatusResponse</code>
-- <code title="get /pet/findByTags">client.pet.<a href="./src/resources/pet.ts">findByTags</a>({ ...params }) -> PetFindByTagsResponse</code>
-- <code title="post /pet/{petId}">client.pet.<a href="./src/resources/pet.ts">updateWithForm</a>(petID, { ...params }) -> Pet</code>
-- <code title="post /pet/{petId}/uploadImage">client.pet.<a href="./src/resources/pet.ts">upload</a>(petID, { ...params }) -> PetUploadResponse</code>
+- <code title="post /pet">client.pets.<a href="./src/resources/pets.ts">create</a>({ ...params }) -> Pet</code>
+- <code title="get /pet/{petId}">client.pets.<a href="./src/resources/pets.ts">retrieve</a>(petID) -> Pet</code>
+- <code title="put /pet">client.pets.<a href="./src/resources/pets.ts">update</a>({ ...params }) -> Pet</code>
+- <code title="delete /pet/{petId}">client.pets.<a href="./src/resources/pets.ts">delete</a>(petID) -> void</code>
+- <code title="get /pet/findByStatus">client.pets.<a href="./src/resources/pets.ts">findByStatus</a>({ ...params }) -> PetFindByStatusResponse</code>
+- <code title="get /pet/findByTags">client.pets.<a href="./src/resources/pets.ts">findByTags</a>({ ...params }) -> PetFindByTagsResponse</code>
+- <code title="post /pet/{petId}">client.pets.<a href="./src/resources/pets.ts">updateWithForm</a>(petID, { ...params }) -> Pet</code>
+- <code title="post /pet/{petId}/uploadImage">client.pets.<a href="./src/resources/pets.ts">upload</a>(petID, { ...params }) -> PetUploadResponse</code>
 
-# Store
+# Stores
 
 Types:
 
-- <code><a href="./src/resources/store/store.ts">StoreListInventoryResponse</a></code>
+- <code><a href="./src/resources/stores/stores.ts">StoreListInventoryResponse</a></code>
 
 Methods:
 
-- <code title="get /store/inventory">client.store.<a href="./src/resources/store/store.ts">listInventory</a>() -> StoreListInventoryResponse</code>
+- <code title="get /store/inventory">client.stores.<a href="./src/resources/stores/stores.ts">listInventory</a>() -> StoreListInventoryResponse</code>
 
 ## Order
 
 Types:
 
-- <code><a href="./src/resources/store/order.ts">Order</a></code>
+- <code><a href="./src/resources/stores/order.ts">Order</a></code>
 
 Methods:
 
-- <code title="post /store/order">client.store.order.<a href="./src/resources/store/order.ts">create</a>({ ...params }) -> Order</code>
-- <code title="get /store/order/{orderId}">client.store.order.<a href="./src/resources/store/order.ts">retrieve</a>(orderID) -> Order</code>
-- <code title="delete /store/order/{orderId}">client.store.order.<a href="./src/resources/store/order.ts">delete</a>(orderID) -> void</code>
+- <code title="post /store/order">client.stores.order.<a href="./src/resources/stores/order.ts">create</a>({ ...params }) -> Order</code>
+- <code title="get /store/order/{orderId}">client.stores.order.<a href="./src/resources/stores/order.ts">retrieve</a>(orderID) -> Order</code>
+- <code title="delete /store/order/{orderId}">client.stores.order.<a href="./src/resources/stores/order.ts">delete</a>(orderID) -> void</code>
+
+# Beta
+
+Types:
+
+- <code><a href="./src/resources/beta.ts">BetaBetafeatureResponse</a></code>
+
+Methods:
+
+- <code title="get /store/inventory">client.beta.<a href="./src/resources/beta.ts">betafeature</a>() -> BetaBetafeatureResponse</code>
 
 # User
 

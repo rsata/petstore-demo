@@ -29,13 +29,9 @@ const client = new PetstoreDemo({
   apiKey: process.env['PETSTORE_DEMO_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] });
+const pet = await client.pets.update({ name: 'doggie', photoUrls: ['string'] });
 
-  console.log(pet.id);
-}
-
-main();
+console.log(pet.id);
 ```
 
 ### Request & Response types
@@ -50,12 +46,8 @@ const client = new PetstoreDemo({
   apiKey: process.env['PETSTORE_DEMO_API_KEY'], // This is the default and can be omitted
 });
 
-async function main() {
-  const params: PetstoreDemo.PetUpdateParams = { name: 'doggie', photoUrls: ['string'] };
-  const pet: PetstoreDemo.Pet = await client.pet.update(params);
-}
-
-main();
+const params: PetstoreDemo.PetUpdateParams = { name: 'doggie', photoUrls: ['string'] };
+const pet: PetstoreDemo.Pet = await client.pets.update(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -68,22 +60,18 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-async function main() {
-  const pet = await client.pet.update({ name: 'doggie', photoUrls: ['string'] }).catch(async (err) => {
-    if (err instanceof PetstoreDemo.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
-}
-
-main();
+const pet = await client.pets.update({ name: 'doggie', photoUrls: ['string'] }).catch(async (err) => {
+  if (err instanceof PetstoreDemo.APIError) {
+    console.log(err.status); // 400
+    console.log(err.name); // BadRequestError
+    console.log(err.headers); // {server: 'nginx', ...}
+  } else {
+    throw err;
+  }
+});
 ```
 
-Error codes are as followed:
+Error codes are as follows:
 
 | Status Code | Error Type                 |
 | ----------- | -------------------------- |
@@ -112,7 +100,7 @@ const client = new PetstoreDemo({
 });
 
 // Or, configure per-request:
-await client.pet.update({ name: 'doggie', photoUrls: ['string'] }, {
+await client.pets.update({ name: 'doggie', photoUrls: ['string'] }, {
   maxRetries: 5,
 });
 ```
@@ -129,7 +117,7 @@ const client = new PetstoreDemo({
 });
 
 // Override per-request:
-await client.pet.update({ name: 'doggie', photoUrls: ['string'] }, {
+await client.pets.update({ name: 'doggie', photoUrls: ['string'] }, {
   timeout: 5 * 1000,
 });
 ```
@@ -152,11 +140,11 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new PetstoreDemo();
 
-const response = await client.pet.update({ name: 'doggie', photoUrls: ['string'] }).asResponse();
+const response = await client.pets.update({ name: 'doggie', photoUrls: ['string'] }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: pet, response: raw } = await client.pet
+const { data: pet, response: raw } = await client.pets
   .update({ name: 'doggie', photoUrls: ['string'] })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
@@ -360,7 +348,7 @@ TypeScript >= 4.9 is supported.
 The following runtimes are supported:
 
 - Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
-- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
 - Deno v1.28.0 or higher.
 - Bun 1.0 or later.
 - Cloudflare Workers.
